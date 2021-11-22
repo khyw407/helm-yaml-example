@@ -1,0 +1,40 @@
+replicaCount: 1
+
+name: helm-template
+serviceName: service-helm-template
+deploymentName: deployment-helm-template
+ingressName: ingress-helm-template
+configmapName: configmap-helm-template
+serviceTargetPort: service-target-port
+
+image:
+  repository: {repository 주소}
+  pullPolicy: IfNotPresent
+  tag: image-tag
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations: {nginx.ingress.kubernetes.io/rewrite-target: /, kubernetes.io/ingress.class: "nginx"}
+  hosts:
+    - host: ingress-host
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+envFile: |

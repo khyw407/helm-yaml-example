@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmapName }}
+data:
+{{- range $line := splitList "\n" .Values.envFile }}
+  {{/* Break the line into words */}}
+  {{- $kv := splitList "=" $line -}}
+  {{- $k := first $kv -}}
+  {{- if $k }}
+    {{ $k }}: {{ last $kv | quote }}
+  {{- end }}
+{{- end }}
